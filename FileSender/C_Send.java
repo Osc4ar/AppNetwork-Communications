@@ -29,10 +29,10 @@ public class C_Send {
           sent = sent + n;
           dos.write ( b, 0, n );
           dos.flush ( );
-          porcentage = ( int ) ( ( sent + 100 ) / size );
-          System.out.print ( "\r" + porcentage + "% sent." );
+          porcentage = ( int ) ( ( sent * 100 ) / size );
+          System.out.print ( "\n\t" + porcentage + "% sent." );
         } // End of while.
-        System.out.println ( "\n\n\tFile sent..." );
+        System.out.println ( "\n\n\tFile sent...\n" );
         dis.close ( );
         dos.close ( );
         cl.close ( );

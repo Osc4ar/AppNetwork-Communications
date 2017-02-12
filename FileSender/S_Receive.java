@@ -12,9 +12,8 @@ public class S_Receive {
       for ( ; ; ) {
         Socket cl = s.accept ( );
         cl.setSoLinger ( true, 10 );
-        System.out.println ( "\n\tClient connected from: " +cl.getInetAddress ( ) + ": " + cl.getPort ( ) );
+        System.out.println ( "\n\n\tClient connected from: " +cl.getInetAddress ( ) + ": " + cl.getPort ( ) );
         DataInputStream dis = new DataInputStream ( cl.getInputStream ( ) );
-        // File f = new File ( );
         String name;
         long size;
         long recv = 0;
@@ -27,8 +26,8 @@ public class S_Receive {
           int n = bis.read ( b );
           recv = recv + n;
           bos.write ( b, 0, n );
-          porcentage = ( int ) ( ( recv + 100 ) / size );
-          System.out.print ( "\r" + porcentage + "% received." );
+          porcentage = ( int ) ( ( recv * 100 ) / size );
+          System.out.print ( "\n\t" + porcentage + "% received." );
         } // End of while.
         dis.close ( );
         bos.close ( );
