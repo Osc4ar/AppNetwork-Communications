@@ -15,23 +15,27 @@ public class S_Receive {
         System.out.println ( "\n\n\tClient connected from: " +cl.getInetAddress ( ) + ": " + cl.getPort ( ) );
         DataInputStream dis = new DataInputStream ( cl.getInputStream ( ) );
         String name;
+        int len;
         long size;
         long recv = 0;
-        name = dis.readUTF ( );
-        size = dis.readLong ( );
-        BufferedOutputStream bos = new BufferedOutputStream ( new FileOutputStream ( name ) );
-        BufferedInputStream bis = new BufferedInputStream ( cl.getInputStream ( ) );
-        while ( recv < size ) {
-          byte [ ] b = new byte [ 2000 ];
-          int n = bis.read ( b );
-          recv = recv + n;
-          bos.write ( b, 0, n );
-          porcentage = ( int ) ( ( recv * 100 ) / size );
-          System.out.print ( "\n\t" + porcentage + "% received." );
-        } // End of while.
-        dis.close ( );
-        bos.close ( );
-        cl.close ( );
+        len = dis.read ( );
+        System.out.println ( len );
+        for ( int counter = 0 ; counter < len ; counter++ ) {
+          name = dis.readUTF ( );
+          size = dis.readLong ( );
+          BufferedOutputStream bos = new BufferedOutputStream ( new FileOutputStream ( name ) );
+          BufferedInputStream bis = new BufferedInputStream ( cl.getInputStream ( ) );
+          while ( recv < size ) {
+            byte [ ] b = new byte [ 2000 ];
+            int n = bis.read ( b );
+            recv = recv + n;
+            bos.write ( b, 0, n );
+            porcentage = ( int ) ( ( recv * 100 ) / size );
+            System.out.print ( "\n\t" + porcentage + "% received." );
+          } // End of while.
+          dis.close ( );
+          bos.close ( );
+        } // End of for.
       } // End of for.
     } catch ( Exception e ) {
       e.printStackTrace ( );

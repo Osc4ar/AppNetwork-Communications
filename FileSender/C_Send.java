@@ -10,6 +10,7 @@ public class C_Send {
       int porcentage = 0;
       Socket cl = new Socket ( host, pto );
       JFileChooser fc = new JFileChooser ( );
+      fc.setMultiSelectionEnabled ( true );
       int r = fc.showOpenDialog ( null );
       if ( r == JFileChooser.APPROVE_OPTION ) {
         File f = fc.getSelectedFile ( );
