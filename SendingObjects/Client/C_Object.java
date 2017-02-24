@@ -8,11 +8,11 @@ public class C_Object implements Serializable {
   int passNumber;
 
   public C_Object ( String n, String l, int a, int p ) {
-    
+
     this.name = n;
     this.lastName = l;
     this.age = a;
     this.passNumber = p;
 
-  } // End of Data method.
+  } // End of Constructor.
 } // End of C_Object class.
