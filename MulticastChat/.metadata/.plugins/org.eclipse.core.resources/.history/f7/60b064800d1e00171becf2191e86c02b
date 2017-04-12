@@ -1,0 +1,93 @@
+package MulticastSocket;
+
+import java.net.UnknownHostException;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.net.MulticastSocket;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Main {
+	
+	protected static ArrayList <String> aList;
+	private static MulticastSocket s;
+	public static InetAddress group;
+	public static int ports, portc;
+	public static String address;
+
+	public static void main ( String [ ] args ) {
+		
+		try {
+			aList = new ArrayList <String> ( );
+			System.setProperty ( "java.net.preferIPv4Stack", "true" );
+			ports = 9000;
+			portc = 9001;
+			address = "230.1.1.1";
+			s = new MulticastSocket ( ports );
+			System.out.println ( "\n\tMulticast service initialized..." );
+			group = null;
+			try {
+				group = InetAddress.getByName ( address );
+			} catch ( UnknownHostException e ) {
+				System.err.println ( "\n\tInvalid address." );
+				System.exit ( 0 );
+			} // End try - catch.
+			s.joinGroup ( group );
+			s.setTimeToLive ( 200 );
+			for ( ; ; ) {
+				DatagramPacket p = new DatagramPacket ( new byte [ 1500 ], 1500 );
+				s.receive ( p );
+				String msg = new String ( p.getData ( ), 0, p.getLength ( ) );
+				System.out.println ( "\n\tMessage received from: " + p.getAddress ( ) + " : " + p.getPort ( ) + "\n\tMessage: " + msg );
+				Type ( msg );
+				try {
+					Thread.sleep ( 5000 );
+				} catch ( InterruptedException ie ) { } // End try - catch.
+			} // End for.
+		} catch ( Exception e ) {
+			e.printStackTrace ( );
+		} // End try - catch.	
+		
+	} // End main.
+	
+	/* The type of the message received from the client
+	 * can be <msg>, <init> or <private>. If it's <msg>, the
+	 * server will send the message to the common chat window, 
+	 * <init> if a new user wants to join to the conversation,
+	 * and <private> to open a personal chat with another user.
+	 */
+	
+	public static void Type ( String msg ) throws IOException {
+		
+		String [ ] sp = msg.split ( " " );
+		msg = "";
+		
+		if ( sp [ 0 ].equalsIgnoreCase ( "<init>" ) ) {
+			String type = "<init>";
+			byte [ ] b = type.getBytes ( );
+			DatagramPacket p = new DatagramPacket ( b, b.length, group, portc );
+			s.send ( p );
+		} // End if.
+		
+		if ( sp [ 0 ].equalsIgnoreCase ( "<msg>" ) ) {
+			String type = "<msg>";
+			byte [ ] b1 = type.getBytes ( );
+			DatagramPacket p1 = new DatagramPacket ( b1, b1.length, group, portc );
+			s.send ( p1 );
+			for ( int i = 1 ; i < sp.length ; i++ ) {
+				msg = msg + sp [ i ] + " ";  
+			} // End for.
+			byte [ ] b = msg.getBytes ( );
+			DatagramPacket p = new DatagramPacket ( b, b.length, group, portc );
+			s.send ( p );
+		} // End if.
+		
+	} // End Type.
+	
+	public static void OnlineUsers ( ) {
+		
+	} // End OnlineUsers.
+
+} // End class.

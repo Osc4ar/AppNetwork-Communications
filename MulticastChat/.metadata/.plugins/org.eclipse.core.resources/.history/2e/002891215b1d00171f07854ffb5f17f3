@@ -1,0 +1,9 @@
+package ClientSocket;
+
+public class Client {
+	
+	public void Launch ( ) {
+		
+	}
+
+}

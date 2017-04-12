@@ -1,0 +1,5 @@
+package MulticastSocket;
+
+public class StreamServer {
+
+}

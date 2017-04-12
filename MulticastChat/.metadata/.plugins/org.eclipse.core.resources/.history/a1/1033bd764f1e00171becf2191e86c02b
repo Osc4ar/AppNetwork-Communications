@@ -1,0 +1,29 @@
+package MulticastSocket;
+
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+
+public class PrivateServer {
+	
+	private static DatagramSocket s;
+	public static int portc2 = 10001;
+	public static int portc1 = 10000;
+	public static int port;
+	
+	public static void InitPrivateService ( ) {
+		
+		try {
+			port = 9709;
+			s = new DatagramSocket ( port );
+			
+			for ( ; ; ) {
+				DatagramPacket p = new DatagramPacket ( new byte [ 1500 ], 1500 );
+				s.receive ( p );
+			} // End forever.
+		} catch ( Exception e ) {
+			e.printStackTrace ( );
+		} // End try - catch.
+		
+	} // End InitPrivateService.
+
+}

@@ -1,0 +1,50 @@
+package ClientSocket;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.io.IOException;
+
+public class PrivateClient {
+
+	protected static DatagramSocket cl;
+	public static String host;
+	public static int ports;
+	public static int port;
+
+	public PrivateClient ( ) {
+	
+		PrivateClient.host = "127.0.0.1";
+		PrivateClient.port = 10000;
+		PrivateClient.ports = 9709;
+
+	} // End constructor.
+	
+	public static void InitPrivateClient ( ) {
+		
+		 try {
+			 PrivateClient.cl = new DatagramSocket ( ); 
+		 } catch ( Exception e ) {
+			 e.printStackTrace ( );
+		 } // End try - catch.
+	
+	} // End InitPrivateClient.
+	
+	public static void OnlineUsers ( ) throws IOException {
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream ( );
+		DataOutputStream dos = new DataOutputStream ( baos );
+		dos.writeInt ( port );
+		dos.flush ( );
+		byte [ ] b = baos.toByteArray ( );
+		DatagramPacket p = new DatagramPacket ( b, b.length, InetAddress.getByName ( host ), ports );
+		cl.send ( p );
+		baos.close ( );
+		dos.close ( );
+		
+	} // End OnlineUsers.
+	
+
+} // End class.

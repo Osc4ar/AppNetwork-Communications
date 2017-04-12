@@ -1,0 +1,12 @@
+package Main;
+
+import GUI.Init;
+
+public class Main {
+	
+	public static void main ( String [ ] args ) {
+		Init in = new Init ( );
+		in.Launch ( );
+	} // End main.
+
+} // End class.

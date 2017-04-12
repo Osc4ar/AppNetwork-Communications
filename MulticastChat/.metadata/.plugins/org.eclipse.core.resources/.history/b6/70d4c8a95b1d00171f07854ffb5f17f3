@@ -1,0 +1,32 @@
+package ClientSocket;
+
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+import java.net.UnknownHostException;
+
+public class Client {
+	
+	public static MulticastSocket cl;
+	
+	public void Launch ( ) {
+		
+		try { 
+			int portc = 9001;
+			String address = "230.1.1.1";
+			cl = new MulticastSocket ( portc );
+			InetAddress group = null;
+			try {
+				group = InetAddress.getByName ( address );
+			} catch ( UnknownHostException e ) {
+				System.err.println ( "\n\tInvalid Address." );
+				System.exit ( 0 );
+			} // End try - catch.
+			cl.joinGroup ( group );
+			cl.setTimeToLive ( 200 );
+		} catch ( Exception e ) {
+			e.printStackTrace ( );
+		} // End try - catch.
+	
+	} // End Launch.
+
+} // End class.
