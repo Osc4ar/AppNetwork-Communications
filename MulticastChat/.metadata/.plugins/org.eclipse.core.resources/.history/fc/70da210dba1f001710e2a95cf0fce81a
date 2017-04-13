@@ -39,7 +39,7 @@ public class Private extends JFrame implements ActionListener, Runnable {
 	
 	public void Components ( String username ) {
 		
-		setDefaultCloseOperation ( JFrame.DISPOSE_ON_CLOSE );
+		setDefaultCloseOperation ( JFrame.EXIT_ON_CLOSE );
 		setLocationRelativeTo ( null );
 		setResizable ( false );
 		setSize ( 300, 340 );
