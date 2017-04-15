@@ -1,0 +1,10 @@
+package PrivateSocket;
+
+public class Private {
+	
+	public static void PrivateServerSocket ( ) {
+		
+		
+	} // End PrivateServerSocket.
+
+} // End Private class.

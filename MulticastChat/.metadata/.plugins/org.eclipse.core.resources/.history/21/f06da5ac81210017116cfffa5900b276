@@ -1,0 +1,15 @@
+package PrivateSocket;
+
+public class Private {
+	
+	public static void PrivateServerSocket ( ) {
+		
+		try {
+			
+		} catch ( Exception e ) {
+			e.printStackTrace ( );
+		} // End try - catch.
+		
+	} // End PrivateServerSocket.
+
+} // End Private class.

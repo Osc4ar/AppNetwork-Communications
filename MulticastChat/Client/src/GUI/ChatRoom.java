@@ -12,6 +12,7 @@ import javax.swing.JEditorPane;
 import java.io.DataInputStream;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
+import java.net.InetAddress;
 import java.io.IOException;
 import ClientSocket.Client;
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ import java.awt.Font;
 
 public class ChatRoom extends JFrame implements ActionListener, Runnable {
 
-	protected static ArrayList <String> privateUserName;
 	private static final long serialVersionUID = 1L;
 	public static DefaultListModel <String> dlm;
 	public static JList <String> onlineUsers;
@@ -46,7 +46,6 @@ public class ChatRoom extends JFrame implements ActionListener, Runnable {
 		
 		super ( "TeamWork-Chat" );
 		this.getContentPane ( ).setBackground( Color.white );
-		privateUserName = new ArrayList <String> ( );
 		dlm = new DefaultListModel <String> ( );
 		onlineUsers = new JList <String> ( dlm );
 		aList = new ArrayList <String> ( );
@@ -103,11 +102,11 @@ public class ChatRoom extends JFrame implements ActionListener, Runnable {
 				JList list = ( JList ) event.getSource ( );
 				if ( event.getClickCount() == 2 ) {
 					int index = list.locationToIndex( event.getPoint ( ) );
-					privateUserName.add ( (String) list.getModel ( ).getElementAt ( index ) );
+					String msgFor = ( String ) list.getModel ( ).getElementAt ( index );
 					privateMsg = "<private> " + list.getModel ( ).getElementAt ( index ) + "from " + username;
 					counter++;
 					try {
-						PrivateMessage ( );
+						PrivateMessage ( msgFor );
 					} catch (IOException e) {
 						e.printStackTrace();
 					} // End try - catch.
@@ -225,20 +224,24 @@ public class ChatRoom extends JFrame implements ActionListener, Runnable {
 				try {
 					Client.cl.receive ( p );
 					msgFrom = new String ( p.getData ( ), 0, p.getLength ( ) );
-				} catch ( IOException e ) {
-					e.printStackTrace();
-				} // End try - catch.
-				DatagramPacket p1 = new DatagramPacket ( new byte [ 1500 ], 1500 );
-				try {
-					Client.cl.receive ( p1 );
-					msgFor = new String ( p1.getData ( ), 0, p1.getLength ( ) );
+					p = new DatagramPacket ( new byte [ 1500 ], 1500 );
+					Client.cl.receive ( p );
+					msgFor = new String ( p.getData ( ), 0, p.getLength ( ) );
 				} catch ( IOException e ) {
 					e.printStackTrace();
 				} // End try - catch.
 				System.out.println( "\n\tPrivate Message for: " + msgFor + ". From: " + msgFrom + "." );
 				if ( msgFor.equalsIgnoreCase ( username ) ) {
 					Private pmsg = new Private ( );
-					pmsg.Components ( username );
+					String s = "<init> <" + username + ">";
+					byte [ ] b = s.getBytes ( );
+					try {
+						p = new DatagramPacket ( b, b.length, InetAddress.getByName ( Private.host ), Private.ports );
+						Private.cl.send ( p );
+					} catch ( Exception e ) {
+						e.printStackTrace();
+					} // End try - catch.
+					pmsg.Components ( username, msgFrom );
 				} // End if.
 			} // End if.
 			
@@ -267,16 +270,24 @@ public class ChatRoom extends JFrame implements ActionListener, Runnable {
 	
 	/* Method called from a nested method if the program detect a mouse event,
 	 * send a string to the socket with the label "<private>", opens a new
-	 * JDialog for private texting with another user.
+	 * JDialog for private texting with another user. At the same time sends a
+	 * message to the UDP socket server with the label <init> to store the port,
+	 * and the username of the requester user.
 	 */
 	
-	public static void PrivateMessage ( ) throws IOException {
+	public static void PrivateMessage ( String msgFor ) throws IOException {
 		
+		String [ ] s1 = msgFor.split ( " " ); 
+		msgFor = s1 [ 0 ];
 		byte [ ] b = privateMsg.getBytes ( );
 		DatagramPacket p = new DatagramPacket ( b, b.length, Client.group, Client.ports );
 		Client.cl.send ( p );
 		Private pmsg = new Private ( );
-		pmsg.Components ( username );
+		String s = "<init> <" + username + ">";
+		b = s.getBytes ( );
+		p = new DatagramPacket ( b, b.length, InetAddress.getByName ( Private.host ), Private.ports );
+		Private.cl.send ( p );
+		pmsg.Components ( username, msgFor );
 		
 	} // End PrivateMessage.
 

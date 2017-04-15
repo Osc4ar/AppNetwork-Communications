@@ -1,0 +1,33 @@
+package PrivateSocket;
+
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.DatagramPacket;
+
+public class Private {
+	
+	private static DatagramSocket s;
+
+	public static void PrivateServerSocket ( ) {
+		
+		try {
+			int port = 9709;
+			int portc = 9501;
+			s = new DatagramSocket ( port );
+			System.out.println ( "Private Service initialized." );
+			for ( ; ; ) {
+				DatagramPacket p = new DatagramPacket ( new byte [ 1500 ], 1500 );
+				s.receive ( p );
+				String msg = new String ( p.getData ( ), 0, p.getLength ( ) );
+				s.send ( p );
+				byte [ ] b = msg.getBytes ( ); 
+				DatagramPacket p1 = new DatagramPacket ( b, b.length, InetAddress.getByName ( "127.0.0.1" ), portc );
+				s.send ( p1 );
+			} // End forever.
+		} catch ( Exception e ) {
+			e.printStackTrace ( );
+		} // End try - catch.
+		
+	} // End PrivateServerSocket.
+
+} // End Private class.

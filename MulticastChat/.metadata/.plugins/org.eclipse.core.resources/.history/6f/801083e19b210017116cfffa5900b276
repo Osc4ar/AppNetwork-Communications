@@ -1,0 +1,46 @@
+package PrivateSocket;
+
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.awt.List;
+import java.net.DatagramPacket;
+
+public class Private {
+	
+	private static DatagramSocket s;
+
+	public static void PrivateServerSocket ( ) {
+		
+		try {
+			int port = 9709;
+			int portc = 9501;
+			s = new DatagramSocket ( port );
+			System.out.println ( "\n\tPrivate Service initialized..." );
+			DatagramPacket p0 = new DatagramPacket ( new byte [ 1500 ], 1500 );
+			s.receive ( p0 );
+			DatagramPacket p01 = new DatagramPacket ( new byte [ 1500 ], 1500 );
+			s.receive ( p01 );
+			ArrayList <Integer> l = new ArrayList <Integer> ( );
+			l.add ( p0.getPort() );
+			l.add ( p01.getPort() );
+
+			for ( ; ; ) {
+				DatagramPacket p = new DatagramPacket ( new byte [ 1500 ], 1500 );
+				s.receive ( p );
+				String msg = new String ( p.getData ( ), 0, p.getLength ( ) );
+				System.out.println(msg + p.getPort() + p.getAddress());
+				DatagramPacket p2 = new DatagramPacket ( b, b.length, InetAddress.getByName ( "127.0.0.1" ), l.get(0) );
+				byte [ ] b1 = msg.getBytes ( );
+				s.send ( p2 );
+				byte [ ] b = msg.getBytes ( ); 
+				DatagramPacket p1 = new DatagramPacket ( b, b.length, InetAddress.getByName ( "127.0.0.1" ), l.get(1) );
+				s.send ( p1 );
+			} // End forever.
+		} catch ( Exception e ) {
+			e.printStackTrace ( );
+		} // End try - catch.
+		
+	} // End PrivateServerSocket.
+
+} // End Private class.
