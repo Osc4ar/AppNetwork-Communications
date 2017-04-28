@@ -1,0 +1,9 @@
+package Main;
+
+public class Answer {
+
+	public static void Compare ( String str ) {
+		
+	} // End Compare.
+	
+} // End class.

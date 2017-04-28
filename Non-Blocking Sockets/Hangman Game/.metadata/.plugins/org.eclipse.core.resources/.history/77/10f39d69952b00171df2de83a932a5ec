@@ -1,0 +1,24 @@
+package Main;
+
+public class Answer {
+	
+	private static boolean flag;
+
+	public static boolean Compare ( String str, Integer port ) {
+		
+		String s = Main.hm.get ( port );
+		if ( Main.difficult.get ( port ).equalsIgnoreCase ( "easy" ) ) {
+			Easy ( s );
+		} else {
+			
+		}
+		
+		return flag;
+		
+	} // End Compare.
+	
+	public void Easy ( String s ) {
+		
+	}
+	
+} // End class.

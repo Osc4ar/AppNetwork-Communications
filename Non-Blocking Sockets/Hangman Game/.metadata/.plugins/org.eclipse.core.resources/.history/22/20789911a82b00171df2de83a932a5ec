@@ -1,0 +1,95 @@
+package Main;
+
+import java.nio.ByteBuffer;
+import java.nio.channels.*;
+import java.util.Iterator;
+import java.util.HashMap;
+import Operations.*;
+import java.net.*;
+
+public class Main {
+	
+	public static HashMap <Integer, String> difficult;
+	public static HashMap <Integer, String> hm;
+	private static Iterator <SelectionKey> it;
+	private static ServerSocketChannel ssc;
+	public static String [ ] split;
+	public static Selector selector;
+	public static SelectionKey k;
+	public static boolean flag1;
+	public static boolean flag;
+	public static String recv;
+	public static int port;
+	public static int n;
+	
+	public static void main ( String [ ] args ) {
+		
+		difficult = new HashMap <Integer, String> ( );
+		hm = new HashMap <Integer, String> ( );
+		
+		try {
+			ssc = ServerSocketChannel.open ( );
+			ssc.configureBlocking ( false );
+			ssc.setOption ( StandardSocketOptions.SO_REUSEADDR, true );
+			port = 9709;
+			ssc.socket ( ).bind ( new InetSocketAddress ( port ) );
+			selector = Selector.open ( );
+			ssc.register ( selector, SelectionKey.OP_ACCEPT );
+			System.out.println ( "\n\n\tHangman Game... waiting for players." );
+			for ( ; ; ) {
+				selector.select ( );
+				it = selector.selectedKeys ( ).iterator ( );
+				while ( it.hasNext ( ) ) {
+					k = ( SelectionKey ) it.next ( );
+					it.remove ( );
+					if ( k.isAcceptable ( ) ) {
+						Accept.acceptClient ( ssc );
+						continue;
+					} // End if.
+					if ( k.isReadable ( ) ) {
+						Operations.receive ( );
+						k.interestOps ( SelectionKey.OP_WRITE );
+						continue;
+					} else if ( k.isWritable ( ) ) {
+						Operations.Write ( );
+						k.interestOps ( SelectionKey.OP_READ );
+						continue;
+					} // End if - else.
+				} // End while.
+			} // End forever.
+		} catch ( Exception e ) {
+			e.printStackTrace ( );
+		} // End try - catch;
+		
+	} // End main.
+	
+	public static void receive ( ) throws Exception {
+		
+		SocketChannel ch = ( SocketChannel ) k.channel ( );
+		ByteBuffer b = ByteBuffer.allocate ( 100 );
+		b.clear ( );
+		n = ch.read ( b );
+		b.flip ( );
+		recv = new String ( b.array ( ), 0, n );
+		split = recv.split ( " " );
+		if ( split [ 0 ].equalsIgnoreCase ( "<difficult>" ) ) {
+			Integer port = ch.socket ( ).getPort ( );
+			difficult.put ( port, split [ 1 ] );
+			if ( split [ 1 ].equalsIgnoreCase ( "easy" ) ) {
+				String str = "H*__o Wo$_d";
+				hm.put ( ch.socket ( ).getPort ( ), str );
+			} else {
+				String str = "_**l.c_t.#ns f#r N?tw#rk C#¿¿un.c_t.#ns";
+				hm.put ( ch.socket ( ).getPort ( ), str );
+			} // End nested if - else.
+			flag1 = true;
+		} // End if.
+		if ( split [ 0 ].equalsIgnoreCase ( "<answer>" ) ) {
+			flag = Answer.Compare ( split [ 1 ], ch.socket ( ).getPort ( ) );
+		} // End if.
+		
+	} // End Receive.
+	
+	
+
+} // End class.

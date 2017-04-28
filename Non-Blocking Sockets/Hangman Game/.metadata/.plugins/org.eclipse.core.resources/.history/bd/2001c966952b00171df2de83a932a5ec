@@ -1,0 +1,16 @@
+package Main;
+
+public class Answer {
+	
+	private static boolean flag;
+
+	public static boolean Compare ( String str, Integer port ) {
+		
+		String s = Main.hm.get ( port );
+		
+		
+		return flag;
+		
+	} // End Compare.
+	
+} // End class.
