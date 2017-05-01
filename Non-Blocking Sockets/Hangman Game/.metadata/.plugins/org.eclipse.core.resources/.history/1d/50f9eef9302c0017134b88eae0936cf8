@@ -1,0 +1,23 @@
+package Operations;
+
+import java.nio.channels.*;
+
+public class Write {
+	
+	public static String difficult;
+	
+	public static void write ( ) throws Exception {
+		
+		if ( Hangman.Main.flag ) {
+			SocketChannel ch = ( SocketChannel ) Hangman.Main.k.channel ( );
+			while ( difficult.equalsIgnoreCase ( "easy" ) == false || difficult.equalsIgnoreCase ( "hard" ) ) {
+				System.out.print( "\tSelect option: " );
+				difficult = Hangman.Main.br.readLine ( );
+			} // End while.
+			difficult = "<difficult> " + difficult;
+		} else {
+			
+		}
+	} // End write.
+
+} // End class.

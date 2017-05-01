@@ -1,0 +1,31 @@
+package Refactor;
+
+import java.nio.channels.*;
+import java.util.Iterator;
+import java.net.*;
+import java.nio.*;
+import java.io.*;
+
+public class Main {
+	
+	private static Iterator <SelectionKey> it;
+	private static BufferedReader br;
+	
+	public static void Init ( ) {
+		
+		br = new BufferedReader ( new InputStreamReader ( System.in ) );
+		
+	} // End Init.
+
+	public static void main ( String [ ] args ) {
+		
+		try {
+			Init ( );
+			
+		} catch ( Exception e ) {
+			e.printStackTrace ( );
+		} // End try - catch.
+		
+	} // End main.
+	
+} // End class.

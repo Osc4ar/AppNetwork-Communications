@@ -14,6 +14,8 @@ public class Main {
 	private static ServerSocketChannel ssc;
 	public static Selector selector;
 	public static SelectionKey k;
+	public static String easy;
+	public static String hard;
 	public static int port;
 	
 	public static void Init ( ) throws Exception {
@@ -27,8 +29,10 @@ public class Main {
 		ssc.socket ( ).bind ( new InetSocketAddress ( port ) );
 		selector = Selector.open ( );
 		ssc.register ( selector, SelectionKey.OP_ACCEPT );
+		easy = "Hello World";
+		hard = "Applications for network communications";
 		System.out.println ( "\n\n\tHangman Game... waiting for players." );
-		
+
 	} // End Init.
 	
 	public static void main ( String [ ] args ) {

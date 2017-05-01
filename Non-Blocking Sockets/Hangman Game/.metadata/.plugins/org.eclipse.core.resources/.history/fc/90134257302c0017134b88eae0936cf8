@@ -1,0 +1,19 @@
+package Operations;
+
+public class Write {
+	
+	public static String difficult;
+	
+	public static void write ( ) {
+		
+		if ( Hangman.Main.flag ) {
+			while ( difficult.equalsIgnoreCase ( "easy" ) == false || difficult.equalsIgnoreCase ( "hard" ) ) {
+				System.out.print( "\tSelect option: " );
+				difficult = Hangman.Main.br.readLine ( );
+			} // End while.
+		} else {
+			
+		}
+	} // End write.
+
+} // End class.

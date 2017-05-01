@@ -7,6 +7,7 @@ import Hangman.Answer;
 public class Receive {
 	
 	public static String [ ] split;
+	public static boolean flag2;
 	public static boolean flag1;
 	public static boolean flag;
 	public static String recv;
@@ -37,6 +38,13 @@ public class Receive {
 		
 		if ( split [ 0 ].equalsIgnoreCase ( "<answer>" ) ) {
 			flag = Answer.Compare ( split [ 1 ], ch.socket ( ).getPort ( ) );
+		} // End if.
+		
+		if ( Hangman.Main.hm.get ( ch.socket ( ).getPort ( ) ).equalsIgnoreCase ( Hangman.Main.easy ) ) {
+			flag2 = true;
+		} // End if.
+		if ( Hangman.Main.hm.get ( ch.socket ( ).getPort ( ) ).equalsIgnoreCase ( Hangman.Main.hard ) ) {
+			flag2 = true;
 		} // End if.
 		
 	} // End Receive.

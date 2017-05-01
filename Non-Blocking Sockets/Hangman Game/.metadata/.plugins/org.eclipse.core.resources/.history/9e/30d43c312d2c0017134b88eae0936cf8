@@ -1,0 +1,62 @@
+package Hangman;
+
+import java.nio.channels.*;
+import java.util.Iterator;
+import Operations.*;
+import java.net.*;
+import java.nio.*;
+import java.io.*;
+
+public class Main {
+	
+	private static Iterator <SelectionKey> it;
+	private static BufferedReader br;
+	private static SocketChannel cl;
+	public static SelectionKey k;
+	private static Selector sel;
+	private static String host;
+	private static int port;
+	
+	public static void Init ( ) throws Exception {
+		
+		host = "127.0.0.1";
+		port = 9709;
+		br = new BufferedReader ( new InputStreamReader ( System.in ) );
+		cl = SocketChannel.open ( );
+		cl.configureBlocking ( false );
+		sel = Selector.open ( );
+		cl.connect ( new InetSocketAddress ( host, port ) );
+		cl.register ( sel, SelectionKey.OP_ACCEPT );
+		
+	} // End Init.
+
+	public static void main ( String [ ] args ) {
+		
+		try {
+			Init ( );
+			while ( true ) {
+				sel.select ( );
+				it = sel.selectedKeys ( ).iterator ( );
+				while ( it.hasNext ( ) ) {
+					k = ( SelectionKey ) it.next ( );
+					it.remove ( );
+					if ( k.isConnectable ( ) ) {
+						Connection ( );
+						continue;
+					} // End if.
+					if ( k.isReadable ( ) ) {
+						
+					} // End if.
+					if ( k.isWritable ( ) ) {
+						
+					} // End if.
+				} // End while.
+			} // End while.
+			
+		} catch ( Exception e ) {
+			e.printStackTrace ( );
+		} // End try - catch.
+		
+	} // End main.
+
+} // End class.

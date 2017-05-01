@@ -5,6 +5,8 @@ import java.nio.ByteBuffer;
 
 public class Write {
 	
+	public static boolean flag;
+	
 	public static void write ( ) throws Exception {
 			
 			if ( Receive.flag1 ) {
@@ -13,6 +15,13 @@ public class Write {
 				ByteBuffer b = ByteBuffer.wrap ( str.getBytes ( ) );
 				ch.write ( b );
 				Receive.flag1 = false;
+			} else if ( Receive.flag2 ) {
+				SocketChannel ch = ( SocketChannel ) Hangman.Main.k.channel ( );
+				String str = "Congratulations: " + Hangman.Main.hm.get ( ch.socket ( ).getPort ( ) );
+				ByteBuffer b = ByteBuffer.wrap ( str.getBytes ( ) );
+				ch.write ( b );
+				ch.socket().close ( );
+				Receive.flag2 = false;
 			} else {
 				if ( Receive.flag ){
 					SocketChannel ch = ( SocketChannel ) Hangman.Main.k.channel ( );
