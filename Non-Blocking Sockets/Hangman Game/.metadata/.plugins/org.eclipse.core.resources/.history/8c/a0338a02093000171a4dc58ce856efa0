@@ -21,7 +21,7 @@ public class Write {
 				ByteBuffer b = ByteBuffer.wrap ( str.getBytes ( ) );
 				ch.write ( b );
 				Hangman.Main.k.cancel ( );
-				ch.socket ( ).close ( );
+				ch.socket ( ).isClosed ( );
 				Receive.flag2 = false;
 			} else {
 				if ( Receive.flag ){

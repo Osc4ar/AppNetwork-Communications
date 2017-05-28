@@ -20,8 +20,6 @@ public class Write {
 				String str = "Congratulations: " + Hangman.Main.hm.get ( ch.socket ( ).getPort ( ) );
 				ByteBuffer b = ByteBuffer.wrap ( str.getBytes ( ) );
 				ch.write ( b );
-				Hangman.Main.k.cancel ( );
-				ch.socket ( ).close ( );
 				Receive.flag2 = false;
 			} else {
 				if ( Receive.flag ){

@@ -1,6 +1,5 @@
 package Operations;
 
-import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 import java.nio.ByteBuffer;
 
@@ -23,13 +22,13 @@ public class Receive {
 		} // End if - else.
 		
 		if ( str.equalsIgnoreCase ( "Congratulations: " + Hangman.Main.easy ) ) {
+			ch.socket ( ).isClosed ( );
 			System.exit ( 0 );
 		} // End if.
 		if ( str.equalsIgnoreCase ( "Congratulations: " + Hangman.Main.hard ) ) {
+			Hangman.Main.k.channel ( ).close ( );
 			System.exit ( 0 );
 		} // End if.
-
-		Hangman.Main.k.interestOps ( SelectionKey.OP_WRITE );
 		
 	} // End receive.
 

@@ -40,27 +40,25 @@ public class Main {
 		try {
 			Init ( );
 			for ( ; ; ) {
-				try {
-					selector.select ( );
-					it = selector.selectedKeys ( ).iterator ( );
-					while ( it.hasNext ( ) ) {
-						k = ( SelectionKey ) it.next ( );
-						it.remove ( );
-						if ( k.isAcceptable ( ) ) {
-							Accept.acceptClient ( ssc );
-							continue;
-						} // End if.
-						if ( k.isReadable ( ) ) {
-							Receive.receive ( );
-							k.interestOps ( SelectionKey.OP_WRITE );
-							continue;
-						} else if ( k.isWritable ( ) ) {
-							Write.write ( );
-							k.interestOps ( SelectionKey.OP_READ );
-							continue;
-						} // End if - else.
-					} // End while.
-				} catch ( Exception cke ) { } // End try - catch.
+				selector.select ( );
+				it = selector.selectedKeys ( ).iterator ( );
+				while ( it.hasNext ( ) ) {
+					k = ( SelectionKey ) it.next ( );
+					it.remove ( );
+					if ( k.isAcceptable ( ) ) {
+						Accept.acceptClient ( ssc );
+						continue;
+					} // End if.
+					if ( k.isReadable ( ) ) {
+						Receive.receive ( );
+						k.interestOps ( SelectionKey.OP_WRITE );
+						continue;
+					} else if ( k.isWritable ( ) ) {
+						Write.write ( );
+						k.interestOps ( SelectionKey.OP_READ );
+						continue;
+					} // End if - else.
+				} // End while.
 			} // End forever.
 		} catch ( Exception e ) {
 			e.printStackTrace ( );

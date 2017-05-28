@@ -23,9 +23,11 @@ public class Receive {
 		} // End if - else.
 		
 		if ( str.equalsIgnoreCase ( "Congratulations: " + Hangman.Main.easy ) ) {
+			Hangman.Main.k.channel ( ).close ( );
 			System.exit ( 0 );
 		} // End if.
 		if ( str.equalsIgnoreCase ( "Congratulations: " + Hangman.Main.hard ) ) {
+			Hangman.Main.k.channel ( ).close ( );
 			System.exit ( 0 );
 		} // End if.
 

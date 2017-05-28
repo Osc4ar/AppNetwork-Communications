@@ -60,7 +60,9 @@ public class Main {
 							continue;
 						} // End if - else.
 					} // End while.
-				} catch ( Exception cke ) { } // End try - catch.
+				} catch ( Exception e1 ) {
+					e1.printStackTrace ( );
+				}
 			} // End forever.
 		} catch ( Exception e ) {
 			e.printStackTrace ( );
