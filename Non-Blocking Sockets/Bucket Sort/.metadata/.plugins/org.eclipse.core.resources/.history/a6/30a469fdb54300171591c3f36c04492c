@@ -1,0 +1,12 @@
+package Operations;
+
+import java.nio.channels.*;
+import Main.Main;
+
+public class Acceptable {
+
+	public static void accept ( ) {
+		
+	} // End method.
+	
+} // End class.

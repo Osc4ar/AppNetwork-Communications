@@ -1,0 +1,14 @@
+package Operations;
+
+import java.nio.channels.*;
+import Main.Main;
+
+public class Writable {
+	
+	public static void write ( ) {
+		
+		Main.k.interestOps ( SelectionKey.OP_READ );
+		
+	} // End method.
+	
+} // End class.

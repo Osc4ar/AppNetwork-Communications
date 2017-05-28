@@ -1,0 +1,9 @@
+package Operations;
+
+public class Acceptable {
+
+	public static void accept ( ) {
+		
+	} // End method.
+	
+} // End class.

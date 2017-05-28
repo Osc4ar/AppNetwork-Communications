@@ -1,0 +1,12 @@
+package Operations;
+
+import java.nio.channels.*;
+import Main.Main;
+
+public class Writable {
+	
+	public static void write ( ) {
+		
+	} // End method.
+
+} // End class.

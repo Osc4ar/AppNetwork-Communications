@@ -1,0 +1,60 @@
+package Operations;
+
+import java.nio.ByteBuffer;
+import java.nio.channels.*;
+import java.util.Random;
+import Servers.Sockets;
+import Main.Main;
+
+/* The class Readable receive from the client the number of buckets that the server
+ * must be prepared to receive, then the server creates 'n' number of threads, this
+ * threads are blocking servers, each sub server will receive a bucket and will sort
+ * the content using the bubble sort algorithm.
+ */
+
+public class Readable {
+	
+	public static Integer numBuckets;
+	private static boolean sFlag;
+	private static String recv;
+	private static int counter;
+	private static int rnd;
+	private static int aux;
+	private static int n;
+
+	public static void read ( ) throws Exception {
+		
+		SocketChannel sc = ( SocketChannel ) Main.k.channel ( );
+		ByteBuffer b = ByteBuffer.allocate ( 10 );
+		counter = 0;
+		
+		b.clear ( );
+		n = sc.read ( b );
+		b.flip ( );
+		recv = new String ( b.array ( ), 0, n );
+		numBuckets = Integer.parseInt ( recv );
+		
+		System.out.println ( "\n\t\tMessage received from: " + sc.socket ( ).getInetAddress ( ).getHostAddress ( ) + " : " + sc.socket ( ).getPort ( ) + ".\n\t\tNumber of buckets to receive: " + numBuckets + "." );
+
+		while ( counter < numBuckets ) {
+			sFlag = false;
+			subServers ( );
+			counter++;
+		} // End while.
+		
+		Main.k.interestOps ( SelectionKey.OP_WRITE );
+		
+	} // End method.
+	
+	public static void subServers ( ) {
+		
+		Runnable t = ( ) -> { 
+			rnd = ( int ) ( new Random ( ).nextDouble ( ) * 65535 + 1024 );
+			while ( sFlag == false ) {
+				sFlag = Sockets.init ( rnd );
+			} // End while.
+		}; new Thread ( t ).start ( );
+		
+	} // End method.
+	
+} // End class.

@@ -1,0 +1,30 @@
+package Operations;
+
+import java.nio.ByteBuffer;
+import java.nio.channels.*;
+import Main.Main;
+
+/* When the sub servers finish the initialization, this class sent to the client the list
+ * of the ports that the sub clients must bind.
+ */
+
+public class Writable {
+	
+	public static Integer counter;
+	
+	public static void write ( ) throws Exception {
+		
+		SocketChannel ch = ( SocketChannel ) Main.k.channel ( );
+		counter = 0;
+		while ( counter < Readable.numBuckets ) {
+			ByteBuffer b = ByteBuffer.wrap ( Readable.portsList [ counter ].getBytes ( ) );
+			ch.write ( b );
+			Thread.sleep ( 10 );
+			counter++;
+		} // End while.
+		
+		Main.k.interestOps ( SelectionKey.OP_READ );
+		
+	} // End method.
+	
+} // End class.

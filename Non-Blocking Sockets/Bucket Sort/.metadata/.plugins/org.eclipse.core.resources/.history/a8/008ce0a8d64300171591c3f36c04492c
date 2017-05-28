@@ -1,0 +1,53 @@
+package Operations;
+
+import java.nio.ByteBuffer;
+import java.nio.channels.*;
+import Clients.Sockets;
+import Main.Main;
+
+/* This class receives from the server the list of ports that the sub client most bind,
+ * there will be one sub client per sub server. Then, the client will initialize all
+ * the sub clients to start the communication.
+ */
+
+public class Readable {
+	
+	private static String [ ] portsList;
+	private static Integer counter;
+	private static boolean cFlag;
+	private static String recv;
+	private static int n;
+	
+	public static void read ( ) throws Exception {
+		
+		SocketChannel ch = ( SocketChannel ) Main.k.channel ( );
+		ByteBuffer b = ByteBuffer.allocate ( 100 );
+		counter = 0;
+		b.clear ( );
+		n = ch.read ( b );
+		b.flip ( );
+		recv = new String ( b.array ( ), 0, n );
+		portsList = recv.split ( " " );
+		subClients ( );
+		
+		Main.k.interestOps ( SelectionKey.OP_WRITE );
+		
+	} // End method.
+	
+	public static void subClients ( ) throws Exception {
+		
+		Runnable t = ( ) -> {
+			while ( counter < portsList.length ) {
+				cFlag = Sockets.init ( Integer.parseInt ( portsList [ counter ] ) );
+				if ( cFlag ) {
+					System.out.println ( "\n\tConnection established... sending bucket." );
+				} // End if.
+				counter++;
+			} // End while.
+			Sockets.send ( );
+		}; new Thread ( t ).start ( );
+		Thread.sleep ( 500 );
+		
+	} // End method.
+
+} // End class.

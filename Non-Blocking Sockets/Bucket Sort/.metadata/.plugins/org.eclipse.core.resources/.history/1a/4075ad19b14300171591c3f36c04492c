@@ -1,0 +1,9 @@
+package Operations;
+
+public class Connect {
+	
+	public static void connect ( ) {
+		
+	} // End method.
+
+} // End class.
