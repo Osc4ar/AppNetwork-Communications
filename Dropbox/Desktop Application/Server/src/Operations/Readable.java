@@ -31,7 +31,9 @@ public class Readable {
 		} // End if.
 		if ( str [ 0 ].equalsIgnoreCase ( "<signup>" ) ) {
 			signup ( );
-			newDirectory.mkDir ( str [ 1 ] );
+			newUser.directory ( str [ 1 ] );
+			newUser.sharedDirectory ( str [ 1 ] );
+			newUser.userSD ( str [ 1 ] );
 		} // End if.
 		
 	} // End read.

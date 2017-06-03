@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;Directory.newDirectory.java&apos; to &apos;newUser.java&apos;&#x0A;- Original project: &apos;Server&apos;&#x0A;- Original element: &apos;Directory.newDirectory.java&apos;&#x0A;- Renamed element: &apos;Directory.newUser.java&apos;" description="Rename compilation unit &apos;newDirectory.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;Directory{newDirectory.java" name="newUser.java" references="false" stamp="1496525443605" version="1.0"/>
+</session>

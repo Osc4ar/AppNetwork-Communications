@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
@@ -17,13 +18,13 @@ import java.awt.Font;
 public class Init extends JFrame implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
+	public static JPasswordField pass1;
+	public static JPasswordField pass;
 	public static JTextField nickname;
 	public static JTextField lastname;
 	public static JTextField email1;
-	public static JTextField pass1;
 	public static JTextField email;
 	public static String [ ] split;
-	public static JTextField pass;
 	public static JTextField name;
 	public static ImageIcon ilogo;
 	public static JButton signUp;
@@ -64,9 +65,9 @@ public class Init extends JFrame implements ActionListener {
 		lastname = new JTextField ( "Last Name" );
 		email1 = new JTextField ( "Your Email" );
 		name = new JTextField ( "Firt Name" );
-		pass1 = new JTextField ( "Password" );
+		pass1 = new JPasswordField ( );
+		pass = new JPasswordField ( );
 		email = new JTextField ( "" );
-		pass = new JTextField ( "" );
 		
 		// Buttons.
 		signUp = new JButton ( "Sign Up" );
@@ -135,6 +136,11 @@ public class Init extends JFrame implements ActionListener {
 		email.setBounds ( 40, 20, 200, 20 );
 		pass.setBounds( 260, 20, 200, 20 );
 		
+		/* Password Fields. */
+		pass1.setText ( "Password" );
+		pass1.setEchoChar( '*' );
+		pass.setEchoChar ( '*' );
+		
 		// Buttons.
 		signUp.setBounds( 60, 520, 110, 40 );
 		signUp.setContentAreaFilled ( false );
@@ -173,7 +179,7 @@ public class Init extends JFrame implements ActionListener {
 		
 		if ( e.getSource ( ) == logIn ) {
 			try {
-				str = "<login>:" + email.getText ( ) + ":" + pass.getText ( );
+				str = "<login>:" + email.getText ( ) + ":" + String.valueOf ( pass.getPassword ( ) );
 				b = ByteBuffer.wrap ( str.getBytes ( ) );
 				Socket.Client.cl.write ( b );
 				Thread.sleep ( 1000 );
@@ -202,9 +208,14 @@ public class Init extends JFrame implements ActionListener {
 		
 		if ( e.getSource ( ) == signUp ) {
 			try { 
-				str = "<signup>:" + nickname.getText ( ) + ":" + name.getText ( ) + ":" + lastname.getText ( ) + ":" + email1.getText ( ) + ":" + pass1.getText ( );
+				str = "<signup>:" + nickname.getText ( ) + ":" + name.getText ( ) + ":" + lastname.getText ( ) + ":" + email1.getText ( ) + ":" + String.valueOf ( pass1.getPassword ( ) );
 				b = ByteBuffer.wrap ( str.getBytes ( ) );
 				Socket.Client.cl.write ( b );
+				nickname.setText ( "Choose a Nickname" );
+				lastname.setText ( "Last Name" );
+				email1.setText ( "Your Email" );
+				name.setText ( "First Name" );
+				pass1.setToolTipText ( "Password" );
 			} catch ( Exception e1 ) {
 				e1.printStackTrace ( );
 			} // End try - catch.
