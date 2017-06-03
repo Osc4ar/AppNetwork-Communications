@@ -1,0 +1,29 @@
+package Directory;
+
+import java.nio.file.Path;
+import java.sql.SQLException;
+import java.io.*;
+import Main.*;
+
+/* Creates a user folder. Here the program will store all the documents from a user.
+ * In case of a download request, the program will search for the document in this 
+ * directory, and will send back the data.
+ */
+
+public class newDirectory {
+
+	private static String query;
+	private static File f;
+	private static Path p;
+	
+	public static void mkDir ( String username ) throws SQLException {
+		
+		f = new File ( "Dropbox/" + username );
+		f.mkdir ( );
+		p = f.toPath ( );
+		query = "INSERT INTO Directory ( name, path, idUser ) VALUES ( '" + username + "', '" + p + "', " + "( SELECT iduser FROM User WHERE nickname like '" + username + "%' ) );";
+		Main.da.setQuery ( query );
+		
+	} // End method.
+	
+} // End class.

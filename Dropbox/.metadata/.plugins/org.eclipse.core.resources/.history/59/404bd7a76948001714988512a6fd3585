@@ -1,0 +1,24 @@
+package Directory;
+
+import java.io.*;
+
+/* Creates a user folder. Here the program will store all the documents from a user.
+ * In case of a download request, the program will search for the document in this 
+ * directory, and will send back the data.
+ */
+
+public class newDirectory {
+
+	public static void mkDir ( String username ) {
+		
+		try {
+			System.out.println ( username );
+			File f = new File ( "/Dropbox/" + username );
+			f.mkdir ( );
+		} catch ( Exception e ) {
+			e.printStackTrace ( );
+		}
+		
+	} // End method.
+	
+} // End class.
