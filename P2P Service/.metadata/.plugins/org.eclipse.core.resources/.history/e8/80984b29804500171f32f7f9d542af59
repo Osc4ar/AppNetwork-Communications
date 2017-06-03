@@ -1,0 +1,13 @@
+package Main;
+
+import Multicast.Server;
+
+public class Main {
+
+	public static void main ( String [ ] args ) {	
+		
+		Runnable t = ( ) -> {  };
+		new Thread ( t ).start ( );
+	} // End main.
+	
+} // End class.

@@ -1,0 +1,17 @@
+package Main;
+
+import Multicast.Multicast;
+
+public class Main {
+
+	public static void main ( String [ ] args ) {	
+		
+		Runnable t = ( ) -> { 
+			Multicast m = new Multicast ( "228.1.1.1", 9709, 9000, null );
+			try {
+				m.init ( );
+			} catch ( Exception e ) { }
+		}; new Thread ( t ).start ( );
+	} // End main.
+	
+} // End class.

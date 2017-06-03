@@ -1,0 +1,70 @@
+package Multicast;
+
+/* This class initialize and constructs a multicast socket service.
+ * The socket makes an announcement every 6 seconds, and sends to all
+ * the join clients a object ( Data ) that contains the port of a TCP
+ * socket and a timer.
+ */
+
+import java.net.*;
+
+public class Multicast {
+
+	private static MulticastSocket ms;
+	private static byte [ ] b;
+	private InetAddress group;
+	private String address;
+	private int ports;
+	private int portc;
+	private Data d;
+	
+	public Multicast ( String address, int ports, int portc, InetAddress group ) {
+		
+		this.address = address;
+		this.ports = ports;
+		this.portc = portc;
+		this.group = group;
+		
+	} // End constructor.
+	
+	public Multicast ( ) { } // End constructor.
+	
+	public void init ( ) {
+		
+		try {
+			ms = new MulticastSocket ( ports );
+			System.out.println ( "\n\n\tMulticast service initialized..." );
+			d = new Data ( );
+			b = d.toString ( ).getBytes ( );
+			try {
+				group = InetAddress.getByName ( address );
+			} catch ( UnknownHostException uhe ) {
+				System.out.println ( "\n\tInvalid address." );
+				System.exit ( 0 );
+			} // End try - catch.
+			ms.joinGroup ( group );
+			ms.setTimeToLive ( 200 );
+			
+			for ( ; ; ) {
+				DatagramPacket p = new DatagramPacket ( b, b.length, group, portc );
+				System.out.println ( "Sending announcement");
+				ms.send ( p );
+				try {
+					Thread.sleep ( 6000 );
+				} catch ( InterruptedException ie ) { 
+					ie.printStackTrace ( );
+				} // End try - catch.
+			} // End for.
+		} catch ( Exception e ) {
+			e.printStackTrace ( );
+		} // End try - catch.
+		
+	} // End method.
+
+	/* Getters. */
+	public InetAddress getGroup ( ) { return group; }
+	public String getAddress ( ) { return address; }
+	public int getPorts ( ) { return ports; }
+	public int getPortc ( ) { return portc; }
+	
+} // End class.

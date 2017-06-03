@@ -1,0 +1,19 @@
+package Main;
+
+import Multicast.Multicast;
+
+public class Main {
+
+	public static void main ( String [ ] args ) {	
+		
+		System.setProperty ( "java.net.preferIPv4Stack", "true" );
+		Runnable t = ( ) -> { 
+			Multicast m = new Multicast ( "227.1.1.1", 9709, 9000, null );
+			try {
+				m.init ( );
+			} catch ( Exception e ) { }
+		}; new Thread ( t ).start ( );
+		
+	} // End main.
+	
+} // End class.

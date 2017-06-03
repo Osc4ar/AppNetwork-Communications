@@ -1,0 +1,35 @@
+package Multicast;
+
+import java.net.*;
+
+public class Server {
+
+	private static MulticastSocket ms;
+	private InetAddress group;
+	private String address;
+	private byte [ ] b;
+	private int ports;
+	private int portc;
+	
+	public Server ( String address, int ports, int portc, InetAddress group ) {
+		
+		this.address = address;
+		this.ports = ports;
+		this.portc = portc;
+		this.group = group;
+		
+	} // End constructor.
+	
+	public Server ( ) { } 
+	
+	public static void init ( ) {
+		
+		try {
+			ms = new MulticastSocket ( );
+		} catch ( Exception e ) {
+			e.printStackTrace ( );
+		} // End try - catch.
+		
+	} // End method.
+	
+} // End class.

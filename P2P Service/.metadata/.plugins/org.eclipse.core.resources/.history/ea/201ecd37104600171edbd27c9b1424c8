@@ -1,0 +1,35 @@
+package TCP;
+
+import java.net.StandardSocketOptions;
+import java.nio.channels.*;
+import java.util.Iterator;
+
+public class Socket {
+
+	protected Iterator <SelectionKey> it;
+	protected ServerSocketChannel ssc;
+	protected SelectionKey k;
+	protected Selector sel;
+	protected String host;
+	protected int port;
+	
+	public Socket ( String host, int port ) {
+		
+		this.host = host;
+		this.port = port;
+		
+	} // End constructor.
+	
+	public void init ( ) throws Exception {
+		
+		ssc = ServerSocketChannel.open ( );
+		ssc.configureBlocking ( false );
+		ssc.setOption ( StandardSocketOptions.SO_REUSEADDR, true );
+		sel = Selector.open ( );
+		ssc.register ( sel, SelectionKey.OP_ACCEPT ); 
+		
+	} // End method.
+	
+	
+	
+} // End class.

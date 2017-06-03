@@ -1,0 +1,29 @@
+package TCP;
+
+import java.net.channels.*;
+import java.nio.*;
+
+public class Socket {
+
+	private SocketChannel s;
+	private String host;
+	private int port;
+	
+	public Socket ( String host, int port ) {
+		
+		this.host = host;
+		this.port = port;
+		
+	} // End constructor.
+	
+	public void init ( ) {
+		
+		try {
+			
+		} catch ( Exception e ) {
+			e.printStackTrace ( );
+		} // End try - catch.
+		
+	} // End method.
+	
+} // End class.

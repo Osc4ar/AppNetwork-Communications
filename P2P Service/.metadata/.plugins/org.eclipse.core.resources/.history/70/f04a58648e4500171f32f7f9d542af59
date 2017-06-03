@@ -1,0 +1,62 @@
+package Main;
+
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+import java.net.UnknownHostException;
+
+import Multicast.Data;
+import Multicast.Multicast;
+
+public class Main {
+	
+	private static MulticastSocket ms;
+	private static byte [ ] b;
+	private static InetAddress group;
+	private static String address;
+	private static int ports;
+	private static int portc;
+	private static Data d;
+	
+	
+
+	public static void main ( String [ ] args ) {	
+		
+		Runnable t = ( ) -> { 
+			try {
+				ports = 9709;
+				portc = 9000;
+				address = "227.1.1.1";
+				group = null;
+				ms = new MulticastSocket ( ports );
+				System.out.println ( "\n\n\tMulticast service initialized..." );
+				d = new Data ( );
+				b = d.toString ( ).getBytes ( );
+				try {
+					group = InetAddress.getByName ( address );
+				} catch ( UnknownHostException uhe ) {
+					System.out.println ( "\n\tInvalid address." );
+					System.exit ( 0 );
+				} // End try - catch.
+				ms.joinGroup ( group );
+				ms.setTimeToLive ( 200 );
+				
+				for ( ; ; ) {
+					DatagramPacket p = new DatagramPacket ( b, b.length, group, portc );
+					System.out.println ( "Sending announcement." );
+					ms.send ( p );
+					try {
+						Thread.sleep ( 6000 );
+					} catch ( InterruptedException ie ) { 
+						ie.printStackTrace ( );
+					} // End try - catch.
+				} // End for.
+				
+			} catch ( Exception e ) {
+				e.printStackTrace ( );
+			} // End try - catch.
+		}; new Thread ( t ).start ( );
+		
+	} // End main.
+	
+} // End class.

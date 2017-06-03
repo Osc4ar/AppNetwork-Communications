@@ -1,0 +1,13 @@
+package TCP;
+
+import java.net.*;
+import java.nio.*;
+
+public class Socket {
+
+	private SocketServer s;
+	public Socket ( ) {
+		
+	} // End constructor.
+	
+} // End class.

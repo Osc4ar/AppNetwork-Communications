@@ -1,0 +1,18 @@
+package Multicast;
+
+import java.net.MulticastSocket;
+
+public class Server {
+
+	public MulticastSocket ms;
+	public InetAddress group;
+	public String address;
+	public byte [ ] b;
+	public int ports;
+	public int portc;
+	
+	public Server ( ) {
+		
+	} // End constructor.
+	
+} // End class.

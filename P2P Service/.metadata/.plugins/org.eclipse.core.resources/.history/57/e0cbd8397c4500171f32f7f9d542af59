@@ -1,0 +1,9 @@
+package Multicast;
+
+public class Server {
+
+	public Server ( ) {
+		
+	} // End constructor.
+	
+} // End class.
