@@ -43,7 +43,7 @@ public class DropBox extends JFrame implements ActionListener {
 		// Panels.
 		panel.setBounds ( 10, 65, 200, 390 );
 		panel1.setBounds ( 0, 0, 1300, 60 );
-		panel1.setBackground ( Color.BLACK );
+		panel1.setForeground ( Color.BLACK );
 		panel1.add ( lwelcome );
 		
 		// Labels.

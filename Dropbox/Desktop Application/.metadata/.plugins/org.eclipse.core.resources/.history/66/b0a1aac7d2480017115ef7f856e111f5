@@ -106,6 +106,32 @@ public class Readable {
 			flag = true;
 		} // End if - else.
 		
+		if ( str [ 1 ].equalsIgnoreCase ( "" ) ) {
+			return false;
+		} else {
+			flag = true;
+		} // End if - else.
+		if ( str [ 2 ].equalsIgnoreCase ( "" ) ) {
+			return false;
+		} else {
+			flag = true;
+		} // End if - else.
+		if ( str [ 3 ].equalsIgnoreCase ( "" ) ) {
+			return false;
+		} else {
+			flag = true;
+		} // End if - else.
+		if ( str [ 4 ].equalsIgnoreCase ( "" ) ) {
+			return false;
+		} else {
+			flag = true;
+		} // End if - else.
+		if ( str [ 5 ].equalsIgnoreCase ( "" ) ) {
+			return false;
+		} else {
+			flag = true;
+		} // End if - else.
+		
 		return flag;
 		
 	} // End method.
