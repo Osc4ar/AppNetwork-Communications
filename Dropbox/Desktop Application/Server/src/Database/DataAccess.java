@@ -2,6 +2,9 @@ package Database;
 
 import java.sql.*;
 
+import Directory.newUser;
+import Operations.*;
+
 public class DataAccess {
 	
 	private static String password = "David";
@@ -9,6 +12,9 @@ public class DataAccess {
 	private static String user = "root";
 	private static String url = "jdbc:mysql://localhost/" + db;
 	private static Connection con = null;
+	public static boolean userdirFlag;
+	public static boolean sdirFlag;
+	public static boolean userSD;
 	
 	public DataAccess ( ) throws ClassNotFoundException, SQLException {
 		
@@ -29,11 +35,18 @@ public class DataAccess {
 		
 	} // End getQuery.
 	
-	public void setQuery ( String query ) throws SQLException {
+	public void setQuery ( String query ) {
 		
-		PreparedStatement ps = con.prepareStatement ( query );
-		//Statement s = ( Statement ) con.createStatement ( );
-		ps.executeUpdate ( query );
+		try { 
+			PreparedStatement ps = con.prepareStatement ( query );
+			ps.executeUpdate ( query );
+			newUser.createDirs ( );
+			Writable.signFlag = true;
+		} catch ( SQLException sql ) {
+			sql.printStackTrace ( );
+			Writable.signFlag = false;
+			Writable.signError = true;
+		} // End try - catch.
 		
 	} // End setQuery.
 	

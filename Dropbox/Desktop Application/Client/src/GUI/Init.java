@@ -37,6 +37,8 @@ public class Init extends JFrame implements ActionListener {
 	public static Image imlogo;
 	public static JLabel logo;
 	public static String str;
+	public static JLabel l6;
+	public static JLabel l5;
 	public static JLabel l4;
 	public static JLabel l3;
 	public static JLabel l2;
@@ -54,6 +56,7 @@ public class Init extends JFrame implements ActionListener {
 		
 		// Labels.
 		l3 = new JLabel ( "Incorrect user name or password." );
+		l5 = new JLabel ( "Oops, something gows wrong." );
 		l4 = new JLabel ( "Password" );
 		l2 = new JLabel ( "Sign Up");
 		l1 = new JLabel ( "Email" );
@@ -64,7 +67,7 @@ public class Init extends JFrame implements ActionListener {
 		nickname = new JTextField ( "Choose a Nickname" );
 		lastname = new JTextField ( "Last Name" );
 		email1 = new JTextField ( "Your Email" );
-		name = new JTextField ( "Firt Name" );
+		name = new JTextField ( "Firts Name" );
 		pass1 = new JPasswordField ( );
 		pass = new JPasswordField ( );
 		email = new JTextField ( "" );
@@ -119,12 +122,15 @@ public class Init extends JFrame implements ActionListener {
 		l2.setFont ( new Font ( "Times New Roman", Font.BOLD, 50 ) );
 		logo.setBounds ( 400, 150, 150, 150 );
 		l2.setForeground ( Color.white );
+		l5.setBounds ( 60, 580, 300, 20 );
 		l3.setBounds ( 40, 40, 300, 20 );
 		l4.setBounds( 260, 5, 200, 10 );
 		l2.setBounds( 60, 80, 200, 100);
 		l3.setForeground ( Color.RED );
+		l5.setForeground ( Color.RED );
 		l1.setBounds( 40, 5, 200, 10 );
 		l3.setVisible ( false );
+		l5.setVisible ( false );
 		logo.setIcon ( ilogo );
 		
 		// Text Fields.
@@ -163,6 +169,7 @@ public class Init extends JFrame implements ActionListener {
 		add ( logo );
 		add ( name );
 		add ( l2 );
+		add ( l5 ); 
 		
 		signUp.addActionListener ( this );
 		logIn.addActionListener ( this );
@@ -216,15 +223,20 @@ public class Init extends JFrame implements ActionListener {
 				email1.setText ( "Your Email" );
 				name.setText ( "First Name" );
 				pass1.setToolTipText ( "Password" );
+				Thread.sleep ( 1000 );
+				b = ByteBuffer.allocate ( 100 );
+				b.clear ( );
+				n = Socket.Client.cl.read ( b );
+				b.flip ( );
+				str = new String ( b.array ( ), 0, n );
+				if ( str.equalsIgnoreCase ( "Error at sign up." ) ) {
+					l5.setVisible ( true );
+				} // End if.
 			} catch ( Exception e1 ) {
 				e1.printStackTrace ( );
 			} // End try - catch.
 		} // End if.
 		
 	} // End ActionListener.
-	
-	public static void buttons ( ) {
-		
-	} // End buttons.
 
 } // End class.

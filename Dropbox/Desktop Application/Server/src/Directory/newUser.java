@@ -1,7 +1,8 @@
 package Directory;
 
-import java.nio.file.Path;
 import java.sql.SQLException;
+import java.nio.file.Path;
+import Database.*;
 import java.io.*;
 import Main.*;
 
@@ -15,6 +16,23 @@ public class newUser {
 	private static String query;
 	private static File f;
 	private static Path p;
+	
+	public static void createDirs ( ) throws SQLException {
+		
+		if ( DataAccess.userdirFlag ) {
+			DataAccess.userdirFlag = false;
+			directory ( Operations.Readable.str [ 1 ] );
+		} // End if.
+		if ( DataAccess.sdirFlag ) {
+			DataAccess.sdirFlag = false;
+			sharedDirectory ( Operations.Readable.str [ 1 ] );
+		} // End if.
+		if ( DataAccess.userSD ) {
+			DataAccess.userSD = false;
+			userSD ( Operations.Readable.str [ 1 ] );
+		} // End if.
+		
+	} // End method.
 	
 	public static void directory ( String username ) throws SQLException {
 		

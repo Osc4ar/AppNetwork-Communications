@@ -1,0 +1,83 @@
+package Operations;
+
+import java.nio.ByteBuffer;
+import java.nio.channels.*;
+import java.sql.ResultSet;
+import Directory.*;
+import Main.*;
+
+public class Readable {
+
+	private static SocketChannel ch;
+	private static String [ ] str;
+	private static String action;
+	private static ByteBuffer b;
+	private static int n;
+	
+	/* The method read receives the data from the client. */
+	
+	public static void read ( ) throws Exception {
+		
+		ch = ( SocketChannel ) Main.k.channel ( );
+		b = ByteBuffer.allocate ( 100 );
+		b.clear ( );
+		n = ch.read ( b );
+		b.flip ( );
+		action = new String ( b.array ( ), 0, n );
+		str = action.split ( ":" );
+		
+		if ( str [ 0 ].equalsIgnoreCase ( "<login>" ) ) {
+			login ( );
+		} // End if.
+		if ( str [ 0 ].equalsIgnoreCase ( "<signup>" ) ) {
+			signup ( );
+			newUser.directory ( str [ 1 ] );
+			newUser.sharedDirectory ( str [ 1 ] );
+			newUser.userSD ( str [ 1 ] );
+		} // End if.
+		
+	} // End read.
+	
+	/* Every time a user makes a log in, the client socket sends to the server the
+	 * email and the password in that order, the function login compare the data
+	 * and evaluate if the user it's on the database or if isn't.
+	 */
+	
+	public static void login ( ) throws Exception {
+				
+		ResultSet rs = ( ResultSet ) Main.da.getQuery ( "SELECT * FROM User" );
+		while ( rs.next ( ) ) {
+			String password = rs.getString ( "pass" );
+			String email = rs.getString ( "email" );
+			if ( email.equalsIgnoreCase ( str [ 1 ] ) && password.equals ( str [ 2 ] ) ) {
+				System.out.println ( "\n\tWelcome back: " + rs.getString ( "nickname" ) + "\n" );
+				Writable.nickname = rs.getString ( "nickname" );
+				Writable.logFlag = true;
+				break;
+			} // End if.
+		} // End while.
+		
+	} // End method.
+	
+	/* The method sign up receive from the the method read a string of data specifying the name,
+	 * nickname, last name, email and password for the new user, sends the info to the
+	 * method DataAccess and compares if the user exist on the database or not.
+	 */
+	
+	public static void signup ( ) throws Exception {
+				
+		if ( !( str [ 1 ].equalsIgnoreCase ( "choose a nickname" ) ) && !( str [ 1 ].equalsIgnoreCase ( "" ) ) ) {
+			if ( !( str [ 2 ].equalsIgnoreCase ( "first name" ) ) && !( str [ 2 ].equalsIgnoreCase ( "" ) )) {
+				if ( !( str [ 3 ].equalsIgnoreCase ( "last name" ) ) && !( str [ 3 ].equalsIgnoreCase ( "" ) ) ) {
+					if ( !( str [ 4 ].equalsIgnoreCase ( "your email" ) ) && !( str [ 4 ].equalsIgnoreCase ( "" ) ) ) {
+						if ( !( str [ 5 ].equalsIgnoreCase ( "password" ) ) && !( str [ 5 ].equalsIgnoreCase ( "" ) ) ) {
+							Main.da.setQuery ( "INSERT INTO User ( nickname, name, lastname, email, pass )" + "VALUES ( '" + str [ 1 ] + "', '" + str [ 2 ] + "', '" + str [ 3 ] + "', '" + str [ 4 ] + "', '" + str [ 5 ]+ "' )" );
+						} else { Writable.signError = true; }
+					} else { Writable.signError = true; } 
+				} else { Writable.signError = true; }
+			} else { Writable.signError = true; }
+		} else { Writable.signError = true; }
+	
+	} // End method.
+	
+} // End class.

@@ -1,9 +1,11 @@
 package Main;
 
 import java.net.StandardSocketOptions;
+import Operations.Writable;
 import java.nio.channels.*;
 import java.util.Iterator;
 import Database.*;
+
 import java.net.*;
 
 public class Main {
@@ -25,6 +27,14 @@ public class Main {
 		sel = Selector.open ( );
 		ssc.register ( sel, SelectionKey.OP_ACCEPT );
 		da = new DataAccess ( );
+		
+		// Initialization of all boolean flags.
+		DataAccess.userdirFlag = false;
+		DataAccess.sdirFlag = false;
+		Writable.signError = false;
+		DataAccess.userSD = false;
+		Writable.signFlag = false;
+		Writable.logFlag = false;
 		
 	} // End Init. 
 	

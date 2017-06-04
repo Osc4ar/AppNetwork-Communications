@@ -3,15 +3,18 @@ package Operations;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
 import java.sql.ResultSet;
-import Directory.*;
+
+import Database.DataAccess;
 import Main.*;
 
 public class Readable {
-	
-	private static String [ ] str;
+
 	private static SocketChannel ch;
+	private static boolean valid;
+	public static String [ ] str;
 	private static String action;
 	private static ByteBuffer b;
+	private static boolean flag;
 	private static int n;
 	
 	/* The method read receives the data from the client. */
@@ -31,9 +34,6 @@ public class Readable {
 		} // End if.
 		if ( str [ 0 ].equalsIgnoreCase ( "<signup>" ) ) {
 			signup ( );
-			newUser.directory ( str [ 1 ] );
-			newUser.sharedDirectory ( str [ 1 ] );
-			newUser.userSD ( str [ 1 ] );
 		} // End if.
 		
 	} // End read.
@@ -54,22 +54,86 @@ public class Readable {
 				Writable.nickname = rs.getString ( "nickname" );
 				Writable.logFlag = true;
 				break;
-			} else {
-				Writable.logFlag = false;
 			} // End if.
 		} // End while.
 		
 	} // End method.
 	
-	/* The method signup receive from the the method read a string of data specifying the name,
-	 * nickname, lastname, email and password for the new user, sends the info to the
+	/* The method sign up receive from the the method read a string of data specifying the name,
+	 * nickname, last name, email and password for the new user, sends the info to the
 	 * method DataAccess and compares if the user exist on the database or not.
 	 */
 	
 	public static void signup ( ) throws Exception {
 				
-		Main.da.setQuery ( "INSERT INTO User ( nickname, name, lastname, email, pass )" + "VALUES ( '" + str [ 1 ] + "', '" + str [ 2 ] + "', '" + str [ 3 ] + "', '" + str [ 4 ] + "', '" + str [ 5 ]+ "' )" );
+		valid = strValidation ( );
+		if ( valid ) {
+			DataAccess.userdirFlag = true;
+			DataAccess.sdirFlag = true;
+			DataAccess.userSD = true;
+			Main.da.setQuery ( "INSERT INTO User ( nickname, name, lastname, email, pass )" + "VALUES ( '" + str [ 1 ] + "', '" + str [ 2 ] + "', '" + str [ 3 ] + "', '" + str [ 4 ] + "', '" + str [ 5 ]+ "' )" );
+		} else {
+			Writable.signError = true; 
+		} // End if - else.
 	
+	} // End method.
+	
+	public static boolean strValidation ( ) {
+		
+		if ( str [ 1 ].equalsIgnoreCase ( "Choose a Nickname" ) ) {
+			return false;
+		} else {
+			flag = true;
+		} // End if - else.
+		if ( str [ 2 ].equalsIgnoreCase ( "First Name" ) ) {
+			return false;
+		} else {
+			flag = true;
+		} // End if - else.
+		if ( str [ 3 ].equalsIgnoreCase ( "Last Name" ) ) {
+			return false;
+		} else {
+			flag = true;
+		} // End if - else.
+		if ( str [ 4 ].equalsIgnoreCase ( "Your Email" ) ) {
+			return false;
+		} else {
+			flag = true;
+		} // End if - else.
+		if ( str [ 5 ].equalsIgnoreCase ( "Password" ) ) {
+			return false;
+		} else {
+			flag = true;
+		} // End if - else.
+		
+		if ( str [ 1 ].equalsIgnoreCase ( "" ) ) {
+			return false;
+		} else {
+			flag = true;
+		} // End if - else.
+		if ( str [ 2 ].equalsIgnoreCase ( "" ) ) {
+			return false;
+		} else {
+			flag = true;
+		} // End if - else.
+		if ( str [ 3 ].equalsIgnoreCase ( "" ) ) {
+			return false;
+		} else {
+			flag = true;
+		} // End if - else.
+		if ( str [ 4 ].equalsIgnoreCase ( "" ) ) {
+			return false;
+		} else {
+			flag = true;
+		} // End if - else.
+		if ( str [ 5 ].equalsIgnoreCase ( "" ) ) {
+			return false;
+		} else {
+			flag = true;
+		} // End if - else.
+		
+		return flag;
+		
 	} // End method.
 	
 } // End class.
