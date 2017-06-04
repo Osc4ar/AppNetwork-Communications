@@ -1,0 +1,98 @@
+package GUI;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Font;
+import javax.swing.*;
+import java.io.File;
+import java.awt.*;
+
+public class DropBox extends JFrame implements ActionListener {
+	
+	private static final long serialVersionUID = 1L;
+	private static JList <String> directory;
+	private static JTextField searchField;
+	private static GridBagConstraints gbc;
+	private static JPanel directoryPanel;
+	private static JScrollPane scroller1;
+	private static JScrollPane scroller;
+	private static ImageIcon userPhoto;
+	private static JPanel requestPanel;
+	private static JPanel welcomePanel;
+	private static JPanel searchPanel;
+	private static JList <File> files;
+	private static ImageIcon search;
+	private static JLabel lwelcome;
+	private static JLabel lsearch;
+	private static JLabel lphoto;
+	private static Image simage;
+	private static Image photo;
+	
+	public DropBox ( String nickname ) {
+		
+		// Grid bag constraints.
+		gbc = new GridBagConstraints ( );
+		
+		// Panels.
+		searchPanel = new JPanel ( new FlowLayout ( FlowLayout.LEFT ) );
+		directoryPanel = new JPanel ( new GridBagLayout ( ) );
+		requestPanel = new JPanel ( new BorderLayout ( ) );
+		welcomePanel = new JPanel ( new CardLayout ( ) );
+	
+		// ImageIcons.
+		userPhoto = new ImageIcon ( "../../Dropbox/" + nickname + "/" + nickname + ".jpg" );
+		search = new ImageIcon ( "search.png" );
+		
+		// Lists.
+		directory = new JList <String> ( new DefaultListModel <String> ( ) );
+		files = new JList <File> ( new DefaultListModel <File> ( ) );
+		
+		// Scroll.
+		scroller1 = new JScrollPane ( directory, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+		scroller = new JScrollPane ( files, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+
+		// Text fields.
+		searchField = new JTextField ( "Search" );
+		
+		//Images.
+		photo = userPhoto.getImage ( );
+		simage = search.getImage ( );
+		
+		// Labels.
+		lwelcome = new JLabel ( "   " + nickname );
+		lsearch = new JLabel ( );
+		lphoto = new JLabel ( );
+		
+	} // End constructor.
+	
+	public void Launch ( ) {
+		
+		setDefaultCloseOperation ( JFrame.EXIT_ON_CLOSE );
+		this.getContentPane ( ).setBackground ( Color.white );
+		setLocationRelativeTo ( null );
+		setTitle ( "Cloud Box" );
+		setSize ( 800, 800 );
+		setVisible ( true );
+		setLayout ( new GridBagLayout ( ) );
+		Components ( );
+		
+	} // End Launch.
+	
+	public void Components ( ) {
+		
+		welcomePanel.setBackground ( Color.decode ( "0x696969") );
+		gbc.gridheight = 6;
+		gbc.gridwidth = 7;
+		gbc.gridx = 6;
+		gbc.gridy = 0;
+		add ( welcomePanel, gbc );
+		
+	} // End Components.
+
+	public void actionPerformed ( ActionEvent e ) {
+		
+	} // End ActionListener.
+	
+} // End class.

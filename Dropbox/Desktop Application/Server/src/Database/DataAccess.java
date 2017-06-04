@@ -26,6 +26,15 @@ public class DataAccess {
 		
 	} // End constructor.
 	
+	public void reconnect ( ) throws SQLException {
+		
+		con = ( Connection ) DriverManager.getConnection ( url, user, password );
+		if ( con != null ) {
+			System.out.println ( "\n\tConnection to " + url + " database... OK.");
+		} // End if.
+		
+	} // End method.
+	
 	public ResultSet getQuery ( String query ) throws SQLException {
 		
 		Statement s = ( Statement ) con.createStatement ( );
