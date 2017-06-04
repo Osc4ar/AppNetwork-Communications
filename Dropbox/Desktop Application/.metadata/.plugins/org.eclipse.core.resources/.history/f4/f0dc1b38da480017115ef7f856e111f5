@@ -1,0 +1,87 @@
+package GUI;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Font;
+
+import javax.swing.*;
+
+public class DropBox extends JFrame implements ActionListener {
+	
+	private static final long serialVersionUID = 1L;
+	private static ImageIcon userPhoto;
+	private static JLabel lwelcome;
+	private static JPanel panel2;
+	private static JPanel panel1;
+	private static JLabel lphoto;
+	private static JPanel panel;
+	private static Image photo;
+	
+	public DropBox ( String nickname ) {
+		
+		// Panels.
+		panel2 = new JPanel ( new BorderLayout ( ) );
+		panel1 = new JPanel ( new BorderLayout ( ) );
+		panel = new JPanel ( new BorderLayout ( ) );
+	
+		// ImageIcons.
+		userPhoto = new ImageIcon ( "../../Dropbox/" + nickname + "/" + nickname + ".jpg" );
+		
+		//Images.
+		photo = userPhoto.getImage ( );
+		
+		// Labels.
+		lwelcome = new JLabel ( "Welcome back: " + nickname );
+		lphoto = new JLabel ( );
+		
+	} // End constructor.
+	
+	public void Launch ( ) {
+		
+		setDefaultCloseOperation ( JFrame.EXIT_ON_CLOSE );
+		this.getContentPane ( ).setBackground ( Color.white );
+		setLocationRelativeTo ( null );
+		setTitle ( "Cloud Box" );
+		setSize ( 800, 600 );
+		setVisible ( true );
+		setLayout ( null );
+		Components ( );
+		
+	} // End Launch.
+	
+	public void Components ( ) {
+		
+		// Panels.
+		panel2.setBackground ( Color.decode ( "0xE6E6FA" ) );
+		panel1.setBackground ( Color.BLACK );
+		//panel.setBackground ( Color.BLACK );
+		panel2.setBounds ( 0, 60, 1300, 40 );
+		panel1.setBounds ( 60, 0, 1300, 60 );
+		//panel.setBounds ( 0, 120, 200, 280 );
+		panel1.add ( lwelcome );
+		
+		// ImageIcons.
+		userPhoto = new ImageIcon ( photo.getScaledInstance ( 60, 60, Image.SCALE_SMOOTH ) );
+		
+		// Labels.
+		lwelcome.setFont ( new Font ( "Arial", Font.BOLD, 20 ) );
+		lwelcome.setBounds ( 20, 80, 600, 100 );
+		lwelcome.setForeground ( Color.WHITE );
+		lphoto.setBounds ( 0, 0, 60, 60 );
+		lphoto.setIcon ( userPhoto);
+		
+		// Add to frame.
+		add ( panel1 );
+		add ( panel2 );
+		add ( lphoto );
+		
+	} // End Components.
+
+	public void actionPerformed ( ActionEvent e ) {
+		
+	} // End ActionListener.
+	
+} // End class.

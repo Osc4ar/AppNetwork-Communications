@@ -1,0 +1,85 @@
+package GUI;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Font;
+
+import javax.swing.*;
+
+public class DropBox extends JFrame implements ActionListener {
+	
+	private static final long serialVersionUID = 1L;
+	private static ImageIcon userPhoto;
+	private static JLabel lwelcome;
+	private static JPanel requestPanel;
+	private static JPanel welcomePanel;
+	private static JLabel lphoto;
+	private static JPanel searchPanel;
+	private static Image photo;
+	
+	public DropBox ( String nickname ) {
+		
+		// Panels.
+		requestPanel = new JPanel ( new BorderLayout ( ) );
+		searchPanel = new JPanel ( new BorderLayout ( ) );
+		welcomePanel = new JPanel ( new FlowLayout ( ) );
+	
+		// ImageIcons.
+		userPhoto = new ImageIcon ( "../../Dropbox/" + nickname + "/" + nickname + ".jpg" );
+		
+		//Images.
+		photo = userPhoto.getImage ( );
+		
+		// Labels.
+		lwelcome = new JLabel ( "Welcome back: " + nickname );
+		lphoto = new JLabel ( );
+		
+	} // End constructor.
+	
+	public void Launch ( ) {
+		
+		setDefaultCloseOperation ( JFrame.EXIT_ON_CLOSE );
+		this.getContentPane ( ).setBackground ( Color.white );
+		setLocationRelativeTo ( null );
+		setTitle ( "Cloud Box" );
+		setSize ( 800, 600 );
+		setVisible ( true );
+		setLayout ( null );
+		Components ( );
+		
+	} // End Launch.
+	
+	public void Components ( ) {
+		
+		// ImageIcons.
+		userPhoto = new ImageIcon ( photo.getScaledInstance ( 60, 60, Image.SCALE_SMOOTH ) );
+		
+		// Labels.
+		lwelcome.setFont ( new Font ( "Arial", Font.BOLD, 20 ) );
+		lwelcome.setBounds ( 80, 20, 600, 100 );
+		lwelcome.setForeground ( Color.WHITE );
+		lphoto.setBounds ( 0, 0, 60, 60 );
+		lphoto.setIcon ( userPhoto );
+		
+		// Panels.
+		requestPanel.setBackground ( Color.decode ( "0xE6E6FA" ) );
+		welcomePanel.setBackground ( Color.BLACK );
+		requestPanel.setBounds ( 200, 60, 1300, 40 );
+		welcomePanel.setBounds ( 60, 0, 1300, 60 );
+		welcomePanel.add ( lwelcome );
+		
+		// Add to frame.
+		add ( welcomePanel );
+		add ( requestPanel );
+		add ( lphoto );
+		
+	} // End Components.
+
+	public void actionPerformed ( ActionEvent e ) {
+		
+	} // End ActionListener.
+	
+} // End class.

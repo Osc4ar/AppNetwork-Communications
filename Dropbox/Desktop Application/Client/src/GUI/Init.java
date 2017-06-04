@@ -91,7 +91,7 @@ public class Init extends JFrame implements ActionListener {
 	public void Launch ( ) {
 		
 		setDefaultCloseOperation ( JFrame.DISPOSE_ON_CLOSE );
-		this.getContentPane ( ).setBackground ( Color.black );
+		this.getContentPane ( ).setBackground ( Color.decode ( "0x708090" ) );
 		setLocationRelativeTo ( null );
 		setTitle ( "Cloud Box" );
 		setSize ( 600, 650 );
@@ -104,6 +104,7 @@ public class Init extends JFrame implements ActionListener {
 	public void Components ( ) {
 		
 		// Panel.
+		panel.setBackground ( Color.decode ( "0x808080" ) );
 		panel.setBounds( 0, 0, 1300, 65 );
 		panel.add ( logIn );
 		panel.add ( email );
@@ -114,15 +115,17 @@ public class Init extends JFrame implements ActionListener {
 		panel.add ( l );
 		
 		// ImageIcons.
-		ilogo = new ImageIcon ( imlogo.getScaledInstance ( 150, 150, Image.SCALE_SMOOTH ) );
-		ic1 = new ImageIcon ( m1.getScaledInstance ( 100, 40, Image.SCALE_SMOOTH ) );
+		ilogo = new ImageIcon ( imlogo.getScaledInstance ( 150, 150, Image.SCALE_AREA_AVERAGING ) );
+		ic1 = new ImageIcon ( m1.getScaledInstance ( 160, 40, Image.SCALE_SMOOTH ) );
 		ic = new ImageIcon ( m.getScaledInstance ( 100, 30, Image.SCALE_SMOOTH ) );
 		
 		// Labels.
 		l2.setFont ( new Font ( "Times New Roman", Font.BOLD, 50 ) );
-		logo.setBounds ( 400, 150, 150, 150 );
-		l2.setForeground ( Color.white );
+		logo.setBounds ( 350, 110, 150, 150 );
 		l5.setBounds ( 60, 580, 300, 20 );
+		l1.setForeground ( Color.WHITE );
+		l4.setForeground ( Color.WHITE );
+		l2.setForeground ( Color.WHITE );
 		l3.setBounds ( 40, 40, 300, 20 );
 		l4.setBounds( 260, 5, 200, 10 );
 		l2.setBounds( 60, 80, 200, 100);
@@ -136,8 +139,8 @@ public class Init extends JFrame implements ActionListener {
 		// Text Fields.
 		nickname.setBounds( 60, 320, 200, 40 );
 		lastname.setBounds( 60, 260, 200, 40 );
-		name.setBounds ( 60, 200, 200, 40 );
 		email1.setBounds ( 60, 380, 200, 40);
+		name.setBounds ( 60, 200, 200, 40 );
 		pass1.setBounds( 60, 440, 200, 40 );
 		email.setBounds ( 40, 20, 200, 20 );
 		pass.setBounds( 260, 20, 200, 20 );
@@ -148,7 +151,7 @@ public class Init extends JFrame implements ActionListener {
 		pass.setEchoChar ( '*' );
 		
 		// Buttons.
-		signUp.setBounds( 60, 520, 110, 40 );
+		signUp.setBounds( 60, 520, 150, 40 );
 		signUp.setContentAreaFilled ( false );
 		logIn.setContentAreaFilled ( false );
 		logIn.setBounds( 480, 15, 110, 30 );

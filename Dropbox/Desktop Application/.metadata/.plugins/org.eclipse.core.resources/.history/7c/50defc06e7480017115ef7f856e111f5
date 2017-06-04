@@ -1,0 +1,245 @@
+package GUI;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import java.awt.BorderLayout;
+import java.nio.ByteBuffer;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Font;
+
+public class Init extends JFrame implements ActionListener {
+	
+	private static final long serialVersionUID = 1L;
+	public static JPasswordField pass1;
+	public static JPasswordField pass;
+	public static JTextField nickname;
+	public static JTextField lastname;
+	public static JTextField email1;
+	public static JTextField email;
+	public static String [ ] split;
+	public static JTextField name;
+	public static ImageIcon ilogo;
+	public static JButton signUp;
+	public static JButton logIn;
+	public static ImageIcon ic2;
+	public static ImageIcon ic1;
+	public static JPanel panel;
+	public static ImageIcon ic;
+	public static ByteBuffer b;
+	public static Image imlogo;
+	public static JLabel logo;
+	public static String str;
+	public static JLabel l6;
+	public static JLabel l5;
+	public static JLabel l4;
+	public static JLabel l3;
+	public static JLabel l2;
+	public static JLabel l1;
+	public static JLabel l;
+	public static Image m1;
+	public static Image m;
+	public static int n;
+
+	
+	public Init ( ) {
+		
+		// Panels.
+		panel = new JPanel ( new BorderLayout ( ) );
+		
+		// Labels.
+		l3 = new JLabel ( "Incorrect user name or password." );
+		l5 = new JLabel ( "Oops, something gows wrong." );
+		l4 = new JLabel ( "Password" );
+		l2 = new JLabel ( "Sign Up");
+		l1 = new JLabel ( "Email" );
+		logo = new JLabel ( );
+		l = new JLabel ( "" );
+		
+		// Text Fields.
+		nickname = new JTextField ( "Choose a Nickname" );
+		lastname = new JTextField ( "Last Name" );
+		email1 = new JTextField ( "Your Email" );
+		name = new JTextField ( "Firts Name" );
+		pass1 = new JPasswordField ( );
+		pass = new JPasswordField ( );
+		email = new JTextField ( "" );
+		
+		// Buttons.
+		signUp = new JButton ( "Sign Up" );
+		logIn = new JButton ( "Log In" );
+		
+		// ImageIcons.
+		ilogo = new ImageIcon ( "logo.png" );
+		ic1 = new ImageIcon ( "sign.png" );
+		ic = new ImageIcon ( "log.png" );
+		
+		// Image.
+		imlogo = ilogo.getImage ( );
+		m1 = ic1.getImage ( );
+		m = ic.getImage ( );
+		
+	} // End constructor.
+
+	public void Launch ( ) {
+		
+		setDefaultCloseOperation ( JFrame.DISPOSE_ON_CLOSE );
+		this.getContentPane ( ).setBackground ( Color.decode ( "0x708090" ) );
+		setLocationRelativeTo ( null );
+		setTitle ( "Cloud Box" );
+		setSize ( 600, 650 );
+		setVisible ( true );
+		setLayout ( null );
+		Components ( );
+		
+	} // End Launch.
+	
+	public void Components ( ) {
+		
+		// Panel.
+		panel.setBackground ( Color.decode ( "0x808080" ) );
+		panel.setBounds( 0, 0, 1300, 65 );
+		panel.add ( logIn );
+		panel.add ( email );
+		panel.add ( pass );
+		panel.add ( l4 );
+		panel.add ( l3 );
+		panel.add ( l1 );
+		panel.add ( l );
+		
+		// ImageIcons.
+		ilogo = new ImageIcon ( imlogo.getScaledInstance ( 145, 150, Image.SCALE_AREA_AVERAGING ) );
+		ic1 = new ImageIcon ( m1.getScaledInstance ( 150, 40, Image.SCALE_SMOOTH ) );
+		ic = new ImageIcon ( m.getScaledInstance ( 100, 30, Image.SCALE_SMOOTH ) );
+		
+		// Labels.
+		l2.setFont ( new Font ( "Times New Roman", Font.BOLD, 50 ) );
+		logo.setBounds ( 400, 150, 150, 150 );
+		l5.setBounds ( 60, 580, 300, 20 );
+		l1.setForeground ( Color.WHITE );
+		l4.setForeground ( Color.WHITE );
+		l2.setForeground ( Color.WHITE );
+		l3.setBounds ( 40, 40, 300, 20 );
+		l4.setBounds( 260, 5, 200, 10 );
+		l2.setBounds( 60, 80, 200, 100);
+		l3.setForeground ( Color.RED );
+		l5.setForeground ( Color.RED );
+		l1.setBounds( 40, 5, 200, 10 );
+		l3.setVisible ( false );
+		l5.setVisible ( false );
+		logo.setIcon ( ilogo );
+		
+		// Text Fields.
+		nickname.setBounds( 60, 320, 200, 40 );
+		lastname.setBounds( 60, 260, 200, 40 );
+		email1.setBounds ( 60, 380, 200, 40);
+		name.setBounds ( 60, 200, 200, 40 );
+		pass1.setBounds( 60, 440, 200, 40 );
+		email.setBounds ( 40, 20, 200, 20 );
+		pass.setBounds( 260, 20, 200, 20 );
+		
+		/* Password Fields. */
+		pass1.setText ( "Password" );
+		pass1.setEchoChar( '*' );
+		pass.setEchoChar ( '*' );
+		
+		// Buttons.
+		signUp.setBounds( 60, 520, 150, 40 );
+		signUp.setContentAreaFilled ( false );
+		logIn.setContentAreaFilled ( false );
+		logIn.setBounds( 480, 15, 110, 30 );
+		signUp.setRolloverEnabled ( true );
+		logIn.setRolloverEnabled ( true );
+		signUp.setBorderPainted ( false );
+		logIn.setBorderPainted ( false );
+		signUp.setIcon ( ic1 );
+		logIn.setIcon ( ic );
+		
+		// Add to JFrame.
+		add ( nickname );
+		add ( lastname );
+		add ( email1 );
+		add ( signUp );
+		add ( pass1 );
+		add ( panel );
+		add ( logo );
+		add ( name );
+		add ( l2 );
+		add ( l5 ); 
+		
+		signUp.addActionListener ( this );
+		logIn.addActionListener ( this );
+		
+	} // End Components.
+	
+	@Override
+	public void actionPerformed ( ActionEvent e ) {
+		
+		/* Sends to the server the email and the password from a user and receives a
+		 * answer; If the user exist in the database opens a new windows, if not, the
+		 * label "l3" appears on screen.
+		 */
+		
+		if ( e.getSource ( ) == logIn ) {
+			try {
+				str = "<login>:" + email.getText ( ) + ":" + String.valueOf ( pass.getPassword ( ) );
+				b = ByteBuffer.wrap ( str.getBytes ( ) );
+				Socket.Client.cl.write ( b );
+				Thread.sleep ( 1000 );
+				b = ByteBuffer.allocate ( 100 );
+				b.clear ( );
+				n = Socket.Client.cl.read ( b );
+				b.flip ( );
+				str = new String ( b.array ( ), 0, n );
+				split = str.split ( ":" );
+				if ( split [ 0 ].equalsIgnoreCase ( "<continue>" ) ) {
+					DropBox db = new DropBox ( split [ 1 ] );
+					db.Launch ( );
+					dispose ( );
+				} else {
+					l3.setVisible ( true );
+				} // End if - else.
+			} catch ( Exception e1 ) {
+				e1.printStackTrace ( );
+			} // End try - catch.
+		} // End if.
+		
+		/* If a new user wants to subscribe to the application, the client sends to the server the 
+		 * corresponding fields and the server resends an answer; If the email it's already 
+		 * on the database the label "l4" appears on screen. On the other hand, the label "l5".
+		 */
+		
+		if ( e.getSource ( ) == signUp ) {
+			try { 
+				str = "<signup>:" + nickname.getText ( ) + ":" + name.getText ( ) + ":" + lastname.getText ( ) + ":" + email1.getText ( ) + ":" + String.valueOf ( pass1.getPassword ( ) );
+				b = ByteBuffer.wrap ( str.getBytes ( ) );
+				Socket.Client.cl.write ( b );
+				nickname.setText ( "Choose a Nickname" );
+				lastname.setText ( "Last Name" );
+				email1.setText ( "Your Email" );
+				name.setText ( "First Name" );
+				pass1.setToolTipText ( "Password" );
+				Thread.sleep ( 1000 );
+				b = ByteBuffer.allocate ( 100 );
+				b.clear ( );
+				n = Socket.Client.cl.read ( b );
+				b.flip ( );
+				str = new String ( b.array ( ), 0, n );
+				if ( str.equalsIgnoreCase ( "Error at sign up." ) ) {
+					l5.setVisible ( true );
+				} // End if.
+			} catch ( Exception e1 ) {
+				e1.printStackTrace ( );
+			} // End try - catch.
+		} // End if.
+		
+	} // End ActionListener.
+
+} // End class.
